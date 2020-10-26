@@ -10,14 +10,17 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="683dp"
+            android:layout_height="255dp"
+            android:layout_marginBottom="12dp"
             android:padding="12dp"
             tools:listitem="@layout/fragment_number" />
 
     <Button
-        android:onClick="addDigit"
-        android:id="@+id/buttonAdd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Add"/>
+            android:id="@+id/buttonAdd"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+
+            android:layout_marginBottom="12dp"
+            android:onClick="addDigit"
+            android:text="@string/Add" />
 </LinearLayout>

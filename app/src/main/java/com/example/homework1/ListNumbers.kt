@@ -7,6 +7,9 @@ class ListNumbers {
         for (i in 1..100)
             this.numbers.add("$i")
     }
+    fun setArray(array : ArrayList<String>) {
+        numbers = array
+    }
     fun addNum() {
         this.numbers.add((this.numbers.last().toInt() + 1).toString())
     }

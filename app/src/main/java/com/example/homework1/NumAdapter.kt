@@ -27,6 +27,10 @@ class NumAdapter(private val numbers: ListNumbers) : RecyclerView.Adapter<NumAda
         notifyItemInserted(numbers.getList().size - 1)
     }
 
+    fun getDigits(): ArrayList<String> {
+        return numbers.getList();
+    }
+
     override fun getItemCount(): Int {
         return numbers.getList().size
     }
