@@ -1,27 +1,34 @@
 package com.example.homework1
 
 import android.app.Activity
-import android.content.Context
 import android.content.res.Configuration
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.OrientationEventListener
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     var digitsList: ListNumbers = ListNumbers()
     var adapter: NumAdapter = NumAdapter(digitsList)
     lateinit var numList: RecyclerView
+    val mainFrag = MainFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment, mainFrag)
+            addToBackStack(null)
+            commit()
+        }
+
+
         numList = findViewById(R.id.recyclerView)
         numList.layoutManager = GridLayoutManager(baseContext, 3, RecyclerView.VERTICAL, false)
         digitsList.init()
@@ -38,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         numList = findViewById(R.id.recyclerView)
+
         if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
             numList.layoutManager = GridLayoutManager(baseContext, 3, RecyclerView.VERTICAL, false)
         else
@@ -50,7 +58,13 @@ class MainActivity : AppCompatActivity() {
     fun addDigit(view: View) {
         adapter.addDigit()
     }
+
     fun check(view : View) {
-        println("lol")
+        val bigNum = BigNumFragment()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment, bigNum)
+            addToBackStack(null)
+            commit()
+        }
     }
 }

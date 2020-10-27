@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class NumAdapter(private val numbers: ListNumbers) : RecyclerView.Adapter<NumAdapter.NumHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumHolder {
-        val itemHolder = LayoutInflater.from(parent?.context).inflate(R.layout.digits, parent, false)
+        val itemHolder = LayoutInflater.from(parent?.context).inflate(R.layout.number_recycler_view, parent, false)
         return NumHolder(itemHolder)
     }
 
@@ -36,6 +36,6 @@ class NumAdapter(private val numbers: ListNumbers) : RecyclerView.Adapter<NumAda
     }
 
     class NumHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var number = itemView.findViewById<TextView>(R.id.number)
+        var number = itemView.findViewById<TextView>(R.id.numberFragment)
     }
 }

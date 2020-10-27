@@ -7,20 +7,8 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+    <fragment
             android:layout_width="match_parent"
-            android:layout_height="255dp"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"
-            tools:listitem="@layout/fragment_number" />
-
-    <Button
-            android:id="@+id/buttonAdd"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-
-            android:layout_marginBottom="12dp"
-            android:onClick="addDigit"
-            android:text="@string/Add" />
+            android:layout_height="match_parent">
+    </fragment>
 </LinearLayout>
