@@ -1,14 +1,11 @@
 package com.example.homework1
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.number_recycler_view.*
 
 class NumAdapter(private val numbers: ListNumbers) : RecyclerView.Adapter<NumAdapter.NumHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumHolder {
@@ -31,15 +28,14 @@ class NumAdapter(private val numbers: ListNumbers) : RecyclerView.Adapter<NumAda
     }
 
     fun getDigits(): ArrayList<String> {
-        return numbers.getList();
+        return numbers.getList()
     }
 
     override fun getItemCount(): Int {
         return numbers.getList().size
     }
 
-    fun ItemClick(recyclerView: RecyclerView, view: View) : String
-    {
+    fun itemClick(recyclerView: RecyclerView, view: View): String {
         val itemPos: Int = recyclerView.getChildLayoutPosition(view)
         return numbers.getList()[itemPos]
     }

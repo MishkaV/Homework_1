@@ -1,35 +1,31 @@
 package com.example.homework1
 
-import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.TextureView
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_big_num.*
-import kotlinx.android.synthetic.main.number_recycler_view.*
 
 class MainActivity : AppCompatActivity() {
-
+    companion object {
+        const val spanCountVertical = 3
+        const val spanCountHorizontal = 4
+    }
     var digitsList: ListNumbers = ListNumbers()
     var adapter: NumAdapter = NumAdapter(digitsList)
     lateinit var numList: RecyclerView
     val mainFrag = MainFragment()
-
+    var checkFragment: Int = 0
+    var clickedNum: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        checkFragment = 0
         numList = findViewById(R.id.recyclerView)
-        numList.layoutManager = GridLayoutManager(baseContext, 3, RecyclerView.VERTICAL, false)
+        numList.layoutManager = GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
         digitsList.init()
         numList.adapter = adapter
     }
@@ -44,32 +40,41 @@ class MainActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         numList = findViewById(R.id.recyclerView)
-
-        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-            numList.layoutManager = GridLayoutManager(baseContext, 3, RecyclerView.VERTICAL, false)
-        else
-            numList.layoutManager = GridLayoutManager(baseContext, 4, RecyclerView.VERTICAL, false)
-        savedInstanceState?.getStringArrayList("KEY")?.let { digitsList.setArray(it) }
-        adapter = NumAdapter(digitsList)
-        numList.adapter = adapter
+        if (checkFragment == 0) {
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+                numList.layoutManager =
+                    GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
+            else
+                numList.layoutManager =
+                    GridLayoutManager(baseContext, spanCountHorizontal, RecyclerView.VERTICAL, false)
+            savedInstanceState?.getStringArrayList("KEY")?.let { digitsList.setArray(it) }
+            adapter = NumAdapter(digitsList)
+            numList.adapter = adapter
+        } else {
+            val bigNum = BigNumFragment.newInstance(clickedNum)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_fragment, bigNum)
+                .commit()
+        }
     }
 
     fun addDigit(view: View) {
         adapter.addDigit()
     }
 
-    fun check(view : View) {
-        val bigNum = BigNumFragment.newInstance(adapter.ItemClick(numList,view))
+    fun check(view: View) {
+        clickedNum = adapter.itemClick(numList, view)
+        checkFragment = 1
+        val bigNum = BigNumFragment.newInstance(clickedNum)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_fragment, bigNum, "tag_bigNum")
-            .commitAllowingStateLoss()
+            .replace(R.id.frame_fragment, bigNum)
+            .commit()
     }
 
-    fun back(view: View)
-    {
+    fun back(view: View) {
+        checkFragment = 0
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, mainFrag)
-            .addToBackStack("tag_1")
             .commit()
     }
 }
