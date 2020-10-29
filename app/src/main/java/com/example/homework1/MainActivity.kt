@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_fragment, mainFrag)
+            .commit()
+
         checkFragment = 0
         numList = findViewById(R.id.recyclerView)
         numList.layoutManager = GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
@@ -40,6 +44,10 @@ class MainActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         if (checkFragment == 0) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_fragment, mainFrag)
+                .commit()
+
             numList = findViewById(R.id.recyclerView)
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
                 numList.layoutManager =

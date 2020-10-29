@@ -8,14 +8,14 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
+    <FrameLayout
+            android:id="@+id/frame_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     <fragment
             android:id="@+id/fragment"
             android:name="com.example.homework1.MainFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     </fragment>
-    <FrameLayout
-            android:id="@+id/frame_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 </LinearLayout>
