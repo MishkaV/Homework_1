@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, mainFrag)
             .commit()
@@ -71,6 +70,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun check(view: View) {
+        checkFragment = 1
         val bigNum = BigNumFragment.newInstance(adapter.itemClick(numList, view))
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, bigNum)
