@@ -3,13 +3,18 @@ package com.example.homework1
 import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.TextureView
 import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_big_num.*
+import kotlinx.android.synthetic.main.number_recycler_view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,16 +23,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var numList: RecyclerView
     val mainFrag = MainFragment()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment, mainFrag)
-            addToBackStack(null)
-            commit()
-        }
-
 
         numList = findViewById(R.id.recyclerView)
         numList.layoutManager = GridLayoutManager(baseContext, 3, RecyclerView.VERTICAL, false)
@@ -60,11 +59,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun check(view : View) {
-        val bigNum = BigNumFragment()
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment, bigNum)
-            addToBackStack(null)
-            commit()
-        }
+        val bigNum = BigNumFragment.newInstance(adapter.ItemClick(numList,view))
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_fragment, bigNum, "tag_bigNum")
+            .commitAllowingStateLoss()
+    }
+
+    fun back(view: View)
+    {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_fragment, mainFrag)
+            .addToBackStack("tag_1")
+            .commit()
     }
 }

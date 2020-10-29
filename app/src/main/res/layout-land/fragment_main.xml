@@ -8,7 +8,7 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="683dp"
+            android:layout_height="364dp"
             android:padding="12dp"
             tools:listitem="@layout/number_recycler_view" />
 

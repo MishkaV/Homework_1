@@ -8,6 +8,8 @@
         tools:context=".MainActivity">
 
     <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.homework1.MainFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     </fragment>

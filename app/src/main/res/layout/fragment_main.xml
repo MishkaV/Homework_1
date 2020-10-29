@@ -3,14 +3,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainFragment">
+        >
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="683dp"
             android:padding="12dp"
-            tools:listitem="@layout/number_recycler_view" />
+            tools:listitem="@layout/number_recycler_view"/>
 
     <Button
             android:id="@+id/buttonAdd"
