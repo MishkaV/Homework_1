@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        if (checkFragment == 0){
-        numList = findViewById(R.id.recyclerView)
+        if (checkFragment == 0) {
+            numList = findViewById(R.id.recyclerView)
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
                 numList.layoutManager =
                     GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
