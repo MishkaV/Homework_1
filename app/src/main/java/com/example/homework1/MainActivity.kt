@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
+        if (checkFragment == 0){
         numList = findViewById(R.id.recyclerView)
-        if (checkFragment == 0) {
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
                 numList.layoutManager =
                     GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
@@ -63,9 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun check(view: View) {
-        clickedNum = adapter.itemClick(numList, view)
-        checkFragment = 1
-        val bigNum = BigNumFragment.newInstance(clickedNum)
+        val bigNum = BigNumFragment.newInstance(adapter.itemClick(numList, view))
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, bigNum)
             .commit()
