@@ -24,15 +24,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mainFrag = MainFragment()
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_fragment, mainFrag)
-            .addToBackStack(null)
-            .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_fragment, mainFrag, "main")
+                .addToBackStack(null)
+                .commit()
+        }
 
         checkFragment = 0
         numList = findViewById(R.id.recyclerView)
-        numList.layoutManager = GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
-        digitsList.init()
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            numList.layoutManager =
+                GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
+        else
+            numList.layoutManager =
+                GridLayoutManager(baseContext, spanCountHorizontal, RecyclerView.VERTICAL, false)
+        if (savedInstanceState == null)
+            digitsList.init()
+        else
+            savedInstanceState?.getStringArrayList("KEY")?.let { digitsList.setArray(it) }
         adapter = NumAdapter(digitsList)
         numList.adapter = adapter
     }
@@ -43,32 +53,6 @@ class MainActivity : AppCompatActivity() {
         }
         super.onSaveInstanceState(outState)
     }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        if (checkFragment == 0) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_fragment, mainFrag)
-                .commit()
-
-            numList = findViewById(R.id.recyclerView)
-            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-                numList.layoutManager =
-                    GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
-            else
-                numList.layoutManager =
-                    GridLayoutManager(baseContext, spanCountHorizontal, RecyclerView.VERTICAL, false)
-            savedInstanceState?.getStringArrayList("KEY")?.let { digitsList.setArray(it) }
-            adapter = NumAdapter(digitsList)
-            numList.adapter = adapter
-        } else {
-            val bigNum = BigNumFragment.newInstance(clickedNum)
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_fragment, bigNum)
-                .commit()
-        }
-    }
-
     fun addDigit(view: View) {
         adapter.addDigit()
     }
@@ -76,9 +60,8 @@ class MainActivity : AppCompatActivity() {
     fun check(view: View) {
         checkFragment = 1
         val bigNum = BigNumFragment.newInstance(adapter.itemClick(numList, view))
-
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_fragment, bigNum)
+            .replace(R.id.frame_fragment, bigNum, "bigNum")
             .addToBackStack(null)
             .commit()
     }

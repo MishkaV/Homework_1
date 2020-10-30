@@ -19,8 +19,13 @@ class BigNumFragment : Fragment() {
         arguments?.let {
             number = it.getString(ARG_PARAM1)
         }
+        this.retainInstance = true
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("tag", number)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
