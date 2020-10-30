@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
     fun check(view: View) {
         checkFragment = 1
         val bigNum = BigNumFragment.newInstance(adapter.itemClick(numList, view))
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, bigNum)
             .addToBackStack(null)

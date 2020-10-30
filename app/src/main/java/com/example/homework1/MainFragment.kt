@@ -5,13 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 
 class MainFragment : Fragment() {
-    var digitsList: ListNumbers = ListNumbers()
-    lateinit var adapter: NumAdapter
-    lateinit var numList: RecyclerView
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
