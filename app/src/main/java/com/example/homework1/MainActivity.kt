@@ -13,23 +13,27 @@ class MainActivity : AppCompatActivity() {
         const val spanCountHorizontal = 4
     }
     var digitsList: ListNumbers = ListNumbers()
-    var adapter: NumAdapter = NumAdapter(digitsList)
+    lateinit var adapter: NumAdapter
     lateinit var numList: RecyclerView
-    val mainFrag = MainFragment()
+    lateinit var mainFrag: MainFragment
     var checkFragment: Int = 0
     var clickedNum: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mainFrag = MainFragment()
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, mainFrag)
+            .addToBackStack(null)
             .commit()
 
         checkFragment = 0
         numList = findViewById(R.id.recyclerView)
         numList.layoutManager = GridLayoutManager(baseContext, spanCountVertical, RecyclerView.VERTICAL, false)
         digitsList.init()
+        adapter = NumAdapter(digitsList)
         numList.adapter = adapter
     }
 
@@ -74,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         val bigNum = BigNumFragment.newInstance(adapter.itemClick(numList, view))
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, bigNum)
+            .addToBackStack(null)
             .commit()
     }
 
@@ -81,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         checkFragment = 0
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_fragment, mainFrag)
+            .addToBackStack(null)
             .commit()
     }
 }
